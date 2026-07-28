@@ -7,7 +7,7 @@ A privacy-first, Chrome-based companion for the complete home-session journey: c
 | Session stage | What the participant sees | Privacy boundary |
 | --- | --- | --- |
 | **Controlled access** | A separately managed entry step | No credential appears in this repository |
-| **Daily context** | A compact check-in before the session | Context remains inside the current protected session |
+| **Daily context** | A compact check-in before the session | Held in protected transient session memory until included in the user-saved local response package |
 | **Browser-local audio and video** | Camera preview, microphone meter, recording, playback, and explicit save confirmation | Media bytes remain in Chrome and are never uploaded |
 | **Stepwise structured questionnaire** | One focused response step at a time, with applicable follow-ups | Protected item wording and scoring logic are not published |
 | **Local JSON + Excel package** | One ZIP download containing equivalent response records | The package is generated in transient session memory and saved by the user |
