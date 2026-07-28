@@ -1,7 +1,19 @@
-# Physical Stimulation Session Recorder
+# Physical Stimulation Intervention Session Companion
 
-A Chrome-first session recorder with explicit local saves, a synthetic public walkthrough, and a visible privacy boundary. Chrome 优先的会话记录工具，以清晰的本地保存步骤、合成演示内容和明确的隐私边界为核心。
+A privacy-first, Chrome-based companion for the complete home-session journey: controlled entry, daily context, local audiovisual recording, stepwise structured responses, local research-package export, and completion confirmation. 面向居家干预场景的隐私优先会话工具，将受控进入、当日状态、本地音视频、分步结构化作答、本地研究资料包与完成确认组织为一条清晰流程。
 
+[Open the controlled demonstration / 打开受控演示](https://physical-stimulation-session-recorder.streamlit.app)
+
+| Session stage | What the participant sees | Privacy boundary |
+| --- | --- | --- |
+| **Controlled access** | A separately managed entry step | No credential appears in this repository |
+| **Daily context** | A compact check-in before the session | Context remains inside the current protected session |
+| **Browser-local audio and video** | Camera preview, microphone meter, recording, playback, and explicit save confirmation | Media bytes remain in Chrome and are never uploaded |
+| **Stepwise structured questionnaire** | One focused response step at a time, with applicable follow-ups | Protected item wording and scoring logic are not published |
+| **Local JSON + Excel package** | One ZIP download containing equivalent response records | The package is generated in transient session memory and saved by the user |
+| **Completion confirmation** | A clear final state after both local files are checked | No participant-facing score or interpretation is shown |
+
+- **Complete guided flow / 完整引导流程** - recording is one stage inside a structured research session, not the whole product.
 - **Chrome-local audio + video / Chrome 本地音视频** - camera and microphone recording stays in the browser.
 - **Local JSON + Excel responses ZIP / 本地 JSON + Excel 作答 ZIP** - one browser download provides both formats.
 - **No media upload; no durable response storage / 媒体不上传；作答资料不持久存储** - media bytes stay in Chrome; response values and the cached ZIP use transient Streamlit server session memory, not durable server storage.
@@ -12,9 +24,26 @@ A Chrome-first session recorder with explicit local saves, a synthetic public wa
 
 ## 体验概览 | Experience Overview
 
-The public demonstration uses a generated camera test scene, synthetic audio, and invented slider responses. It shows the complete interaction without exposing real session content: confirm access, prepare devices, record and save locally, complete synthetic feedback, download the JSON + Excel ZIP, confirm both local saves, and finish.
+The protected operational questionnaire follows the complete session path shown above. The public synthetic demonstration uses a generated camera test scene, synthetic audio, and invented slider responses as a safe interaction surrogate. It preserves the rhythm of entry, local recording, stepwise response, ZIP download, and completion without exposing protected item text or real session values.
 
-公开演示只使用生成的测试画面、合成音频与虚构的滑杆回应，用于呈现操作节奏与成功状态。
+公开演示只使用生成的测试画面、合成音频与虚构的滑杆回应，用于呈现完整操作节奏与成功状态；受保护的正式作答内容不会出现在本仓库、截图或动图中。
+
+## 分步结构化作答 | Stepwise Questionnaire Experience
+
+The protected experience is designed for low cognitive load rather than a single long form. Each screen asks for one focused response, shows applicable follow-ups only when needed, and records every applicable answer before local export.
+
+受保护页面采用低认知负担的分步流程，而不是单页长表单：每次聚焦一个作答任务，仅在需要时显示后续分支，并在本地导出前确认所有适用内容均已完成。
+
+| Design principle | Participant experience |
+| --- | --- |
+| **One step at a time** | Compact prompts, stable controls, and visible progress reduce scanning burden |
+| **Applicable follow-ups** | Conditional branches appear only when relevant |
+| **Complete response capture** | Required and applicable responses are checked before completion |
+| **Immediate support copy** | A configured safety condition can surface a direct support message without exposing a score |
+| **No participant-facing scores** | No totals, thresholds, interpretations, or risk labels are displayed or exported |
+| **Local response package** | Equivalent JSON and Excel records are delivered in one user-saved ZIP |
+
+The four public sliders are deliberately invented. They demonstrate control behavior and progression only; they are not the protected prompts, response scales, study schedule, or scoring model.
 
 ## 九步流程 | Nine-Step Walkthrough
 
@@ -66,15 +95,15 @@ The public demonstration uses a generated camera test scene, synthetic audio, an
 
 ![Step 6: stopped WebM playback, download control, and checked local-save confirmation](assets/step-06-local-video-save.webp)
 
-### 7. 提交合成反馈 | Submit Synthetic Feedback
+### 7. 完成结构化作答 | Complete the Structured Response Stage
 
-**Action / 操作:** Move the four invented feedback sliders and submit the demonstration feedback.
+**Action / 操作:** In the public flow, move the four invented sliders and submit them as a privacy-safe stand-in for the protected stepwise questionnaire. / 在公开流程中调整四个虚构滑杆并提交，用于安全演示受保护分步作答的交互节奏。
 
-**Success / 完成:** The workflow advances to local download without showing a score or answer summary.
+**Success / 完成:** The workflow advances to local download without showing a score, threshold, interpretation, or answer summary. / 流程进入本地下载，不显示分数、阈值、解释或作答摘要。
 
 ![Step 7: four invented slider prompts collect synthetic demonstration feedback](assets/step-07-synthetic-feedback.webp)
 
-### 8. 下载本地 ZIP | Download the Local ZIP
+### 8. 下载本地作答资料包 | Download the Local Response Package
 
 **Action / 操作:** Download the synthetic ZIP, verify that it is present locally, and check the confirmation box.
 
@@ -114,11 +143,11 @@ The recorder stops automatically at the selected mode's limit. In either mode, c
 
 达到所选模式的时限后，录制会自动停止。继续前请确认 WebM 已保存，并能正常播放画面与声音。演示模式在下载前刷新或关闭标签页会丢失内容；长时段模式若在定稿前遇到浏览器崩溃、断电、设备断开或写入失败，文件可能不完整或无法播放，不能视为已完成录制。
 
-## 本地导出 | Local Export
+## 本地作答导出 | Local Response Export
 
-After the synthetic sliders are complete, their response values are transmitted to Streamlit and held in **transient server-side session memory**. The application builds and caches one ZIP in that session; it contains equivalent **JSON and Excel** representations and remains available through download and local-save confirmation. It is separate from the WebM and must be saved and checked separately.
+After the structured response stage is complete, response values are transmitted to Streamlit and held in **transient server-side session memory**. The protected operational flow and the public synthetic flow use the same local-delivery pattern: the application builds and caches one ZIP in that session, containing equivalent **JSON and Excel** representations. It remains available through download and local-save confirmation, is separate from the WebM, and must be saved and checked separately.
 
-完成合成滑杆后，回应值会传送给 Streamlit，并暂存在**服务器端会话内存**。应用会在该会话中生成并缓存一个 ZIP，其中包含等价的 **JSON 与 Excel** 内容，并在下载及本地保存确认期间保留。ZIP 与 WebM 相互独立，必须分别保存并检查。
+完成结构化作答后，回应值会传送给 Streamlit，并暂存在**服务器端会话内存**。受保护正式流程与公开合成流程采用相同的本地交付方式：应用在当前会话中生成并缓存一个 ZIP，其中包含等价的 **JSON 与 Excel** 内容。ZIP 与 WebM 相互独立，必须分别保存并检查。
 
 - Keep the tab open through ZIP download and local-save confirmation. / 在 ZIP 下载及本地保存确认完成前保持标签页开启。
 - Open the archive locally and confirm that both JSON and Excel files are present. / 在本机打开压缩包，确认 JSON 与 Excel 文件均存在。
@@ -135,7 +164,7 @@ Response values and the cached ZIP are not written to durable server disk or sto
 flowchart TB
     Devices["Camera + microphone"] --> Chrome["Chrome local recorder"]
     Chrome --> Video["User-saved WebM"]
-    Answers["Slider / widget response values"] --> Session["Transient Streamlit server session memory"]
+    Answers["Structured response values"] --> Session["Transient Streamlit server session memory"]
     Session --> Cache["Cached JSON + Excel ZIP"]
     Cache --> Zip["User-downloaded local ZIP"]
     Chrome -. "no media upload" .-> BlockedMedia["Server media storage"]
@@ -143,11 +172,11 @@ flowchart TB
     Session -. "no durable response storage" .-> BlockedData["Durable server storage"]
 ```
 
-Media bytes remain in Chrome, are saved only through a user-controlled local action, and are never uploaded. Slider and widget values are transmitted to Streamlit and held in transient server-side session memory together with the cached export ZIP through the completion screen. Neither the values nor the ZIP are written to durable server storage. **Finish does not clear them**; they are cleared on **Restart**, return to the overview, or Streamlit session termination.
+Media bytes remain in Chrome, are saved only through a user-controlled local action, and are never uploaded. Structured response values are transmitted to Streamlit and held in transient server-side session memory together with the cached export ZIP through the completion screen. Neither the values nor the ZIP are written to durable server storage. **Finish does not clear them**; they are cleared on **Restart**, return to the overview, or Streamlit session termination.
 
 媒体字节始终留在 Chrome 中，仅通过用户操作保存到本机，绝不上传。滑杆与控件回应值会传送至 Streamlit，并与缓存导出 ZIP 一同暂存在服务器端会话内存，且会保留到完成画面；这些内容不会写入服务器持久存储。**Finish 不会清除它们**，选择 **Restart**、返回概览或 Streamlit 会话终止时才会清除。
 
-**Participant scores are neither displayed nor included.** The downloaded package contains raw responses, not calculated totals, interpretations, thresholds, or risk labels. Public images contain no real questionnaire content, participant identifiers, or real session values.
+**Participant scores are neither displayed nor included.** The downloaded package contains raw responses, not calculated totals, interpretations, thresholds, or risk labels. Public images contain no protected prompt content, participant identifiers, or real session values.
 
 ## Chrome 使用指南 | Chrome Guide
 
@@ -158,7 +187,7 @@ Media bytes remain in Chrome, are saved only through a user-controlled local act
 5. **Choose a mode before recording / 录制前选择模式。** Use **Demo** for up to five minutes in memory. Use **Long session** for up to 45 minutes written directly to a local file; select the destination when Chrome asks. / **Demo** 最长 5 分钟并暂存在浏览器内存；**Long session** 最长 45 分钟并直接写入本地文件，按 Chrome 提示选择保存位置。
 6. **Record and stop cleanly / 开始并正常停止。** Choose **Record**, confirm the timer advances, then choose **Stop** once. Wait for finalization before leaving the page or changing devices. / 选择 **Record**，确认计时器前进，结束时只选择一次 **Stop**；定稿完成前不要离开页面或更换设备。
 7. **Verify the local WebM / 检查本地 WebM。** In demo mode, play the result and choose **Download**. In long mode, locate the destination selected before recording. Confirm both video and audio playback, then check the video local-save box. / 演示模式先回放再选择 **Download**；长时段模式找到录制前选定的文件。确认画面与声音均可播放后，再勾选视频本地保存确认。
-8. **Complete the synthetic response step / 完成合成作答步骤。** Adjust the invented sliders and submit. This public flow contains no real question content and displays no score. / 调整虚构滑杆并提交；公开流程不含真实问题内容，也不显示分数。
+8. **Complete the structured response stage / 完成结构化作答阶段。** In the public demonstration, adjust the invented sliders and submit them as an interaction surrogate. The protected operational page uses stepwise prompts and applicable follow-ups; neither path displays participant scores. / 在公开演示中调整并提交虚构滑杆，以替代方式呈现交互；受保护正式页面采用分步作答及适用分支，两种路径均不向参与者显示分数。
 9. **Download the response package / 下载作答数据包。** Download the JSON + Excel ZIP, find it in Chrome's download list or the chosen download location, and confirm that both formats are present. / 下载 JSON + Excel ZIP，在 Chrome 下载列表或所选位置找到文件，并确认两种格式均存在。
 10. **Confirm and finish / 确认并结束。** Check the ZIP local-save box, choose the finish command, and wait for the completion screen. Response values and the cached ZIP remain in transient server session memory after **Finish**. / 勾选 ZIP 本地保存确认，选择结束命令并等待完成画面；选择 **Finish** 后，回应值与缓存 ZIP 仍保留在临时服务器会话内存中。
 11. **Restart only when needed / 仅在需要时重新开始。** Use the restart command for a new synthetic run. A restart clears the current demonstration state, so first verify every required local file. / 使用重新开始命令进入新的合成流程；该操作会清除当前演示状态，因此请先检查所有必需的本地文件。
@@ -188,7 +217,7 @@ For support, report only the generic symptom and Chrome version. Never upload th
 
 ## 设计语言 | Design Direction
 
-The interface follows a quiet, sequential step flow: one visible current stage, compact headings, direct commands, and restrained status accents. Sliders suit lightweight synthetic feedback; a stable 16:9 recorder prevents layout shifts; clear keyboard focus states keep controls discoverable. The no-score boundary avoids result dashboards or visualizations that could suggest interpretation.
+The interface follows a quiet, sequential step flow: one visible current stage, compact headings, direct commands, and restrained status accents. Stable controls support stepwise structured responses; the public sliders remain a synthetic surrogate. A fixed 16:9 recorder prevents layout shifts, and clear keyboard focus states keep controls discoverable. The no-score boundary avoids result dashboards or visualizations that could suggest interpretation.
 
 ![Five equal color swatches in deep navy, violet, pink, blue, and peach / 五个等宽色块依次展示深海军蓝、紫色、粉色、蓝色与桃色](assets/palette.webp)
 
@@ -206,4 +235,4 @@ The visual direction is inspired by restrained neuroscience product design and d
 
 [Open the controlled demonstration](https://physical-stimulation-session-recorder.streamlit.app)
 
-Access credentials are shared separately by the demonstration owner. This README contains no credential and does not provide a private source link.
+Access credentials are shared separately by the demonstration owner. The deployed entry can be configured for either the privacy-safe synthetic walkthrough or the protected operational session; this public README contains neither credentials, protected prompt content, nor a private source link.
