@@ -98,10 +98,17 @@ The public demonstration uses a generated camera test scene, synthetic audio, an
 
 Chrome creates a **WebM file with camera video and microphone audio**. The mode changes how those bytes reach local storage:
 
-| Mode / 模式 | Limit / 上限 | Save behavior / 保存方式 | Best for / 适合 |
-| --- | ---: | --- | --- |
-| **Demo / 演示** | 5 minutes / 5 分钟 | Holds recording chunks in browser memory, then exposes local playback and a **Download** command after a clean stop.<br>录制片段暂存在浏览器内存中；正常停止后可本地回放并使用 **Download** 下载。 | Short checks and demonstrations.<br>适合短时检查与演示。 |
-| **Long session / 长时段** | 45 minutes / 45 分钟 | Opens Chrome's local file picker before recording and writes chunks directly to the chosen file; a clean stop closes and finalizes it.<br>开始前由 Chrome 选择本地文件，录制片段直接写入该文件；正常停止后完成关闭与定稿。 | Longer sessions with lower browser-memory pressure.<br>适合较长时段，并降低浏览器内存压力。 |
+### Demo / 演示
+
+- **Limit / 上限:** 5 minutes / 5 分钟
+- **Save behavior / 保存方式:** Keeps recording chunks in browser memory. After a clean stop, review local playback and choose **Download**. / 录制片段暂存在浏览器内存中；正常停止后先检查本地回放，再选择 **Download** 下载。
+- **Best use / 适合:** Short checks and demonstrations. / 适合短时检查与演示。
+
+### Long session / 长时段
+
+- **Limit / 上限:** 45 minutes / 45 分钟
+- **Save behavior / 保存方式:** Opens Chrome's local file picker before recording and writes chunks directly to the chosen file; a clean stop closes and finalizes it. / 开始前由 Chrome 选择本地文件，录制片段直接写入该文件；正常停止后完成关闭与定稿。
+- **Best use / 适合:** Longer sessions with lower browser-memory pressure. / 适合较长时段，并降低浏览器内存压力。
 
 The recorder stops automatically at the selected mode's limit. In either mode, confirm the saved WebM exists and plays with audio before continuing. Demo-mode content is lost if the tab refreshes or closes before download. Long-mode output can be incomplete or unplayable after a browser crash, power loss, device disconnect, failed write, or interruption before finalization; do not treat a partial file as a completed recording.
 
@@ -182,6 +189,8 @@ For support, report only the generic symptom and Chrome version. Never upload th
 ## 设计语言 | Design Direction
 
 The interface follows a quiet, sequential step flow: one visible current stage, compact headings, direct commands, and restrained status accents. Sliders suit lightweight synthetic feedback; a stable 16:9 recorder prevents layout shifts; clear keyboard focus states keep controls discoverable. The no-score boundary avoids result dashboards or visualizations that could suggest interpretation.
+
+![Five equal color swatches in deep navy, violet, pink, blue, and peach / 五个等宽色块依次展示深海军蓝、紫色、粉色、蓝色与桃色](assets/palette.webp)
 
 | Swatch | Role |
 | --- | --- |
