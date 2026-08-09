@@ -40,7 +40,7 @@ The underlying prototype uses six explicit completion gates:
 | **Local response package / 本地资料包** | Generate equivalent JSON and Excel records in one ZIP | Local ZIP save confirmed |
 | **Completion / 完成确认** | Confirm local outcomes and close the active flow | Application-owned session state cleared |
 
-The public walkthrough groups adjacent interactions into a shorter screen sequence and replaces all research measures with invented usability prompts. It preserves the visible interaction pattern and completion gates; the sections below document the corresponding data boundaries.
+The public walkthrough groups adjacent interactions into a shorter screen sequence and replaces all research measures with invented usability prompts. It illustrates the visible interaction pattern; the table above documents the corresponding completion gates, and the sections below describe their data boundaries.
 
 ## Interface and Interaction · 界面与交互
 
