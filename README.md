@@ -1,94 +1,127 @@
-# Physical Stimulation Intervention Session Companion
+# Physical Stimulation Session Recorder
 
-**Public showcase · 研究会话原型公开展示**
+**A guided workflow for repeated, remotely supervised research sessions.**
 
-A documentation-only showcase of a privacy-conscious research-session prototype. The prototype brings controlled entry, brief daily context, browser-local audiovisual recording, stepwise structured responses, local response export, and completion confirmation into one guided workflow.
+Designed for participants completing physical-stimulation sessions with research-staff supervision, the prototype combines controlled entry, brief session context, browser-local audiovisual recording, stepwise structured responses, local export, and explicit completion gates. It aims to reduce missed steps and ambiguous adherence records without adding a media-upload path to the application.
 
-本项目用于展示受控研究会话的流程与隐私边界。目前仍是研究原型，尚未替代由研究人员监督的正式会话流程，也不构成临床产品或自动化居家干预系统。
+> **Public-showcase scope.** All example media, study-facing prompts, and displayed values are synthetic; the interaction structure is a sanitized representation of the access-restricted prototype. This repository contains documentation and sanitized visual assets only. Operational source code, study-specific measures and access logic, credentials, and participant records remain access-restricted.
 
-**Private synthetic demo — access available on request.**
+![Animated synthetic walkthrough showing entry, local recording, stepwise responses, local export, and completion](assets/workflow-demo.gif)
 
-![Synthetic walkthrough of the public demonstration](assets/workflow-demo.gif)
+<details>
+<summary>View the static workflow image</summary>
 
-[Static workflow image / 静态流程图](assets/workflow-demo-static.webp)
+![Static overview of the synthetic guided session workflow](assets/workflow-demo-static.webp)
 
-## My Contributions · 我的工作
+</details>
 
-- Designed the six-stage operational journey and the explicit gates between access, recording, response, export, and completion.
-- Implemented the browser-local recording experience, including device readiness, local WebM saving, playback checks, and explicit save confirmation.
-- Built the session-scoped JSON + Excel export flow and the associated state-cleanup and privacy boundaries.
-- Created a separate synthetic demonstration and a fail-closed public-asset audit so the interaction can be shown without publishing study-specific content.
-- Produced the bilingual walkthrough and visual documentation for research and engineering review.
+## What I Built
 
-## Two Related, Distinct Flows · 两套相关但不同的流程
+My contribution was the design and implementation of the participant-facing software workflow and this sanitized public documentation. The research team defined and governed the intervention protocol, study-specific measures, and participant procedures; none of those materials is reproduced here.
 
-### Six-stage operational prototype · 六阶段正式原型
+- Designed the end-to-end session journey and six explicit gates from entry through completion.
+- Implemented a Chrome-based local recorder with device-readiness checks, browser-managed WebM saving, local playback-check instructions, and separate saved-file and no-save outcomes.
+- Built the stepwise response flow and a session-scoped ZIP export with corresponding JSON and Excel views generated from the same session snapshot.
+- Defined the data-handling and cleanup boundaries among browser-local media, transient response state, and user-controlled downloads.
+- Created the synthetic walkthrough and sanitized visual documentation so the interaction can be reviewed without exposing study-specific content.
 
-This is the intended structure of a supervised research session. Study-specific measurement content is deliberately omitted from this showcase.
+## Guided Workflow
 
-| Stage | Purpose | Data boundary |
+| Stage | Purpose | Complete when |
 | --- | --- | --- |
-| **1. Controlled entry / 受控进入** | Establish the authorized session context | Access details are managed separately |
-| **2. Daily context / 当日状态** | Record the minimum context needed for the session | Values remain session-scoped until local export |
-| **3. Browser-local recording / 本地音视频** | Record and verify camera video plus microphone audio | Media stays in Chrome and is saved by the user |
-| **4. Stepwise structured responses / 分步作答** | Present one required response step at a time | Study-specific content is not included here |
-| **5. Local response package / 本地资料包** | Generate equivalent JSON and Excel records in one ZIP | The user downloads and checks the package locally |
-| **6. Completion confirmation / 完成确认** | Confirm both local outcomes and close the active flow | Application-owned session state is cleared |
+| **01 · Controlled entry** | Establish the configured supervised-session context | Configured entry is accepted |
+| **02 · Daily context** | Capture the minimum context required for the session | Required context is complete |
+| **03 · Browser-local recording** | Record and review camera video plus microphone audio in Chrome | User attests the local WebM outcome |
+| **04 · Stepwise response** | Present one required response step at a time | Required and applicable steps are complete |
+| **05 · Local response package** | Generate JSON and Excel views in one ZIP | User attests that the ZIP was saved locally |
+| **06 · Completion** | Record the stated outcomes and close the active flow | Active-flow response and export values are reset |
 
-### Five-state synthetic public demo · 五状态公开合成演示
+The public walkthrough condenses adjacent interactions and replaces research measures with invented usability prompts. It demonstrates the interaction pattern; the table documents all six prototype completion gates.
 
-The public-facing demonstration is intentionally smaller. It preserves the interaction pattern while replacing operational content with invented feedback prompts and synthetic values.
+## Interface Walkthrough
 
-| Demo state | What it demonstrates |
+The images below come from the synthetic public walkthrough; the accompanying text describes the corresponding behavior in the access-restricted prototype.
+
+### Browser-Local Recording
+
+![Animated synthetic walkthrough of device checks, recording, local saving, and outcome confirmation](assets/local-recording.gif)
+
+<details>
+<summary>View the static recorder image</summary>
+
+![Static view of the browser-local recording controls](assets/local-recording-static.webp)
+
+</details>
+
+The current Chrome implementation checks camera and microphone readiness, shows a muted preview, records WebM media, and provides local playback-check instructions. Depending on the selected mode, recording data are either buffered for a user-initiated download or written directly to a user-selected local file. The implemented application path does not send media bytes to the Streamlit server.
+
+Interrupted or unfinished local recordings may be incomplete. The UI records either the user's confirmation that a local file was saved or an explicit no-save outcome. These are user attestations; the application does not inspect the local file system or verify file integrity.
+
+### Stepwise Structured Responses
+
+![Synthetic screen showing invented usability prompts and stepwise response controls](assets/step-07-synthetic-feedback.webp)
+
+The public walkthrough uses four invented usability prompts to demonstrate one-at-a-time controls, progression, and required-step completion. In the prototype, applicable branches appear only when needed, and study-specific measures remain access-restricted.
+
+### Local Response Package
+
+![Synthetic screen showing a ZIP download containing JSON and Excel exports](assets/step-08-local-zip-download.webp)
+
+The prototype generates one user-downloaded ZIP containing corresponding JSON and Excel views of the same session snapshot. The UI records the user's confirmation that the ZIP was saved locally; it does not inspect the local file system.
+
+### Completion Confirmation
+
+![Synthetic completion screen marking the end of the guided flow](assets/step-09-confirmation.webp)
+
+The final action records the stated recording and response-package outcomes, removes the active workflow's response and export values from application-managed session state, leaves a minimal terminal completion marker, and closes the guided flow.
+
+## Data Flow and Privacy Boundary
+
+```mermaid
+flowchart TB
+    subgraph MEDIA["Audiovisual path — participant device"]
+        direction LR
+        CAM["Camera + microphone"] --> REC["Chrome-local recorder"]
+        REC --> WEBM["User-selected local WebM"]
+    end
+
+    subgraph RESPONSES["Response path — active application session"]
+        direction LR
+        UI["Guided response UI"] --> MEM["Transient Streamlit session state"]
+        MEM --> PACK["JSON + Excel package"]
+        PACK --> ZIP["User-saved ZIP"]
+        MEM -. "active-flow values reset at completion" .-> END["Terminal state"]
+    end
+```
+
+- In the current implementation, audiovisual data are handled by the recorder in Chrome and written to a user-selected local WebM. The implemented application path does not send media bytes to the Streamlit server.
+- Response values are held in Streamlit's server-side session state during the active flow to manage progression and generate the download package. Corresponding JSON and Excel views are generated from the same session snapshot.
+- The prototype does not intentionally write response values to an application database or file-backed server store. Browser, runtime, and hosting-platform retention are outside this showcase's claims.
+- Completion removes the workflow-owned response and export values from application-managed session state. This does not claim memory zeroization or deletion of browser, runtime, or hosting-platform logs.
+- Local-save and playback checks are user attestations, not automatic file-system inspection or integrity verification.
+
+## Evidence Boundary
+
+This repository provides synthetic visual evidence of the interaction pattern. Statements about the access-restricted implementation are implementation documentation; because the operational source is not public, they are not independently executable or verifiable from this repository alone.
+
+| Shown in synthetic assets or documented about the prototype | Not established by this showcase |
 | --- | --- |
-| **Overview / 流程概览** | Neutral explanation of the synthetic session |
-| **Local capture / 本地录制** | Device readiness, recording, local save, and no-save fallback |
-| **Synthetic reflection / 合成反馈** | Four invented sliders used only to demonstrate progression |
-| **Synthetic download / 合成下载** | A locally downloaded JSON + Excel ZIP containing invented values |
-| **Confirmation / 完成确认** | A clear terminal state and an explicit restart action |
+| Guided progression and explicit completion gates | Clinical effectiveness |
+| Browser-local media handling and user-initiated local saving | Independent public source-code or privacy/security audit |
+| Local response-package generation and active-flow state reset | Automatic verification of files on the user's device or platform-retention guarantees |
+| A supervised research-prototype workflow | Unsupervised deployment readiness or privacy/security certification |
 
-The five states above describe the application state machine. The screenshots show smaller user-interface actions within those states; they do not represent additional operational stages.
+## Project Status
 
-## Browser-local Recording · 浏览器本地录制
+**Active research prototype.** Participant sessions remain governed by supervised study procedures. This tool is not a clinical product or the authoritative intervention protocol. The implementation remains access-restricted and is being developed as reusable research infrastructure for guided sessions, browser-local recording, structured responses, and local data packaging.
 
-![Synthetic local-recording walkthrough](assets/local-recording.gif)
+<details>
+<summary>中文简介</summary>
 
-[Static recorder image / 静态录制图](assets/local-recording-static.webp)
+本项目面向研究人员监督下的重复性远程物理刺激研究会话，将受控进入、当日状态、本地音视频录制、分步结构化作答、本地资料包与完成确认组织为一条清晰流程。
 
-The current desktop Chrome workflow provides camera and microphone readiness, a stable preview, a recording timer, local playback, and explicit save confirmation.
+我负责参与者端软件流程、数据处理边界及脱敏公开展示的设计与实现；研究团队负责干预方案、研究专用量表和参与者流程。本仓库只包含合成界面与脱敏素材，不公开运行源码、研究专用内容、凭证或参与者记录。
 
-- **Demo mode:** short recordings are held in browser memory until the user downloads the WebM.
-- **Long-session mode:** recording chunks are written directly to a user-selected local file and finalized on a clean stop.
-- In both modes, media bytes remain in Chrome; the Streamlit application has no media-upload path.
+录像保存在用户选择的本地 WebM 中，当前实现未设置向 Streamlit 服务器上传媒体的应用路径。页面中的本地保存与回放确认均为用户自我确认，系统不会自动检查本地文件或保证浏览器、运行环境与托管平台日志被删除。
 
-Interrupted or unfinished files may be incomplete. A checked confirmation records the user's verification; it is not an automatic inspection of the local file system.
-
-## Synthetic Response and Export · 合成作答与导出
-
-![Invented response sliders used in the synthetic demonstration](assets/step-07-synthetic-feedback.webp)
-
-The synthetic demo uses four invented interaction questions. Their only purpose is to demonstrate focused controls, progression, local export, and completion without reproducing study-specific measurement content.
-
-![Synthetic JSON and Excel package download](assets/step-08-local-zip-download.webp)
-
-Synthetic response values are held in transient Streamlit session memory while one ZIP is generated. The ZIP contains equivalent JSON and Excel representations and is saved through a user-controlled browser download. The synthetic demo does not write those values or the cached ZIP to durable server storage.
-
-## Privacy Boundary · 隐私边界
-
-- Camera and microphone bytes remain in the browser and are saved only through a user-controlled local action.
-- Synthetic response values enter transient server-side session memory only to build the local response package.
-- Public screenshots and animations use generated media, invented responses, and no participant identifiers.
-- This public showcase contains documentation and sanitized visual assets, not application source, credentials, or participant records.
-- The current showcase asset set has passed its file-shape, content, URL, and embedded-metadata audit.
-
-> **Release boundary:** Operational source code and study-specific materials are outside the scope of this public showcase and must remain access-restricted. A public release should be described as privacy-safe only after repository visibility and anonymous access have been independently verified.
-
-## Current Status · 当前状态
-
-- **Research prototype / 研究原型:** active development and evaluation.
-- **Operational use / 正式使用:** supervised research procedures remain authoritative.
-- **Public evidence / 公开证据:** synthetic interaction, local recording behavior, local export, and privacy-boundary documentation.
-- **Not claimed / 不作声明:** clinical effectiveness, unsupervised deployment readiness, or automatic verification that a local file was saved correctly.
-
-![Synthetic completion state](assets/step-09-confirmation.webp)
-
+</details>
